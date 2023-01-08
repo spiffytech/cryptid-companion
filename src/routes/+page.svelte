@@ -3,7 +3,7 @@
 		label: string;
 		prefix?: string;
 	}
-	interface Clue {
+	export interface Clue {
 		features: [Feature] | [Feature, Feature];
 		status: boolean;
 	}
@@ -30,8 +30,11 @@
 	const savedData = localStorage.getItem('data');
 	let players: Player[] = savedData ? JSON.parse(savedData) : [];
 	$: {
+		console.log('foo');
 		localStorage.setItem('data', JSON.stringify(players));
 	}
+
+	const refresh = () => (players = players);
 </script>
 
 <AddPlayer bind:players />
@@ -44,6 +47,6 @@
 
 <div class="w-full flex flex-col md:items-center">
 	{#if players.length > 0}
-		<Clues clues={players[0].clues} />
+		<Clues clues={players[0].clues} {refresh} />
 	{/if}
 </div>
