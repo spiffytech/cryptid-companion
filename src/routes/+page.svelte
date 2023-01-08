@@ -30,7 +30,6 @@
 	const savedData = localStorage.getItem('data');
 	let players: Player[] = savedData ? JSON.parse(savedData) : [];
 	$: {
-		console.log('foo');
 		localStorage.setItem('data', JSON.stringify(players));
 	}
 
