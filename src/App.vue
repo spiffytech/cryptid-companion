@@ -41,9 +41,12 @@ watchEffect(() => console.log(clues.value?.on_terrain.values[0].status));
 
 <template>
   <div class="flex justify-between">
-    <AddPlayer @add-player="(player) => players.push(player)" />
+    <AddPlayer
+      v-if="players.length === 0"
+      @add-player="(player) => players.push(player)"
+    />
 
-    <button type="button" @click="players = []">Reset</button>
+    <button type="button" @click="players = []" class="ml-auto">Reset</button>
   </div>
 
   <div class="flex gap-x-2">
