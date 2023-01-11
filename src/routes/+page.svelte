@@ -33,19 +33,25 @@
 		localStorage.setItem('data', JSON.stringify(players));
 	}
 
+	let activePlayer = 0;
+	$: clues = players.length > 0 ? players[activePlayer].clues : null;
+
 	const refresh = () => (players = players);
 </script>
 
 <AddPlayer bind:players />
 
-<ul class="flex gap-x-2">
-	{#each players as player}
-		<li class="underline">{player.name}</li>
+<div class="flex gap-x-2">
+	{#each players as player, index}
+		<label>
+			{player.name}
+			<input type="radio" name="player" bind:group={activePlayer} value={index} class="underline" />
+		</label>
 	{/each}
-</ul>
+</div>
 
 <div class="w-full flex flex-col md:items-center">
-	{#if players.length > 0}
-		<Clues clues={players[0].clues} {refresh} />
+	{#if clues}
+		<Clues {clues} {refresh} />
 	{/if}
 </div>

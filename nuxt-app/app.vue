@@ -36,12 +36,12 @@ watchEffect(() => console.log(clues.value?.on_terrain.values[0].status));
 <template>
 	<AddPlayer :players="players" @add-player="(player) => players.push(player)" />
 
-	<ul class="flex gap-x-2">
+	<div class="flex gap-x-2">
 		<label v-for="(player, index) in players">
 			{{ player.name }}
 			<input type="radio" name="player" v-model="activePlayer" :value="index" class="underline" />
 		</label>
-	</ul>
+	</div>
 
 	<div class="w-full flex flex-col md:items-center">
 		<Clues v-if="clues" :clues="clues" />

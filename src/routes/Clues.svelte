@@ -44,7 +44,12 @@
 			{#each subgroups as subgroup}
 				<ul class="table">
 					{#each subgroup as value}
-						<li class={clsx('table-row', value.status && 'line-through text-gray-400 grayscale')}>
+						<li
+							class={clsx(
+								'table-row',
+								value.status && 'line-through decoration-2 text-gray-400 grayscale'
+							)}
+						>
 							<input
 								type="checkbox"
 								checked={value.status}
