@@ -1,21 +1,14 @@
-import { sveltekit } from '@sveltejs/kit/vite';
-import type { UserConfig, Plugin } from 'vite';
-import { WebSocketServer } from 'ws';
+import { fileURLToPath, URL } from 'node:url'
 
-const wss_: Plugin = {
-	name: 'wss',
-	configureServer(server) {
-		if (!server.httpServer) return;
-		console.log('foo');
-		//console.log({ server });
-		console.log(server.ws);
-		//const wss = new WebSocketServer({ server: server.httpServer });
-		//console.log('wss', wss);
-	}
-};
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
 
-const config: UserConfig = {
-	plugins: [wss_, sveltekit()]
-};
-
-export default config;
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [vue()],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  }
+})

@@ -1,4 +1,10 @@
 <script setup lang="ts">
+import { ref, watchEffect, computed } from 'vue';
+
+import AddPlayer from './components/AddPlayer.vue';
+import Clues from './components/Clues.vue';
+import Feature from './components/Feature.vue';
+
 export interface Feature {
 	label: string;
 	prefix?: string;
