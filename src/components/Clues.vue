@@ -43,7 +43,7 @@ const subgroups = (group: (typeof groups.value)[number]) => [
 <template>
   <div
     v-for="group in groups"
-    class="md:w-4/5 lg:w-3/5 flex flex-col md:items-center ml-12"
+    class="md:w-4/5 lg:w-3/5 flex flex-col md:items-center px-4"
   >
     <h2 class="font-bold border-b-2 w-full md:text-center">
       {{ group.header }}

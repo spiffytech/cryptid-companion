@@ -50,7 +50,7 @@ watchEffect(() => console.log(clues.value?.on_terrain.values[0].status));
     <button type="button" @click="players = []" class="ml-auto">Reset</button>
   </div>
 
-  <div class="flex gap-x-2">
+  <div class="flex gap-x-8 justify-center mb-4">
     <label
       v-for="(player, index) in players"
       class="pb-1"
