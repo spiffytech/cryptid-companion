@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import type { Player, PossibleClues } from "../App.vue";
 
-const { players } = defineProps<{
-  players: Player[];
-}>();
-
 const emit = defineEmits<{ (e: "add-player", player: Player): void }>();
 
 const addPlayer = () => {
