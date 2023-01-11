@@ -4,6 +4,7 @@ import { ref, watchEffect, computed } from "vue";
 import AddPlayer from "./components/AddPlayer.vue";
 import Clues from "./components/Clues.vue";
 import Feature from "./components/Feature.vue";
+import ColorIcon from "./components/ColorIcon.vue";
 
 export interface Feature {
   label: string;
@@ -50,14 +51,21 @@ watchEffect(() => console.log(clues.value?.on_terrain.values[0].status));
   </div>
 
   <div class="flex gap-x-2">
-    <label v-for="(player, index) in players">
-      {{ player.color }}
+    <label
+      v-for="(player, index) in players"
+      class="pb-1"
+      :class="{
+        [`border-b-4 ${player.color.replace(/^text/, 'border')}`]:
+          activePlayer === index,
+      }"
+    >
+      <ColorIcon :color="player.color" :checked="false" />
       <input
         type="radio"
         name="player"
         v-model="activePlayer"
         :value="index"
-        class="underline"
+        class="hidden"
       />
     </label>
   </div>

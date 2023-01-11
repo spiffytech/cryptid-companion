@@ -1,18 +1,13 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
+import ColorIcon from "./ColorIcon.vue";
+import { availableColors } from "@/lib/stuff";
+
 import type { Player, PossibleClues } from "../App.vue";
+import type { PlayerColors } from "@/lib/stuff";
 
 const emit = defineEmits<{ (e: "add-player", player: Player): void }>();
-
-const availablePlayers = {
-  orange: "text-orange-500",
-  purple: "text-purple-700",
-  teal: "text-teal-500",
-  sky: "text-sky-200",
-  red: "text-red-500",
-} as const;
-type PlayerColors = (typeof availablePlayers)[keyof typeof availablePlayers];
 
 const addPlayer = (color: PlayerColors) => {
   const clues: PossibleClues = {
@@ -90,27 +85,19 @@ const addPlayer = (color: PlayerColors) => {
 };
 
 const addPlayers = () => {
-  players.value.forEach((color) => addPlayer(color));
+  selectedColors.value.forEach((color) => addPlayer(color));
 };
 
-const players = ref<PlayerColors[]>([]);
+const selectedColors = ref<PlayerColors[]>([]);
 </script>
 
 <template>
-  <label v-for="(color, name) in availablePlayers" :key="name">
-    <span
-      class="w-8 h-8 inline-block text-4xl"
-      :class="color"
-      :alt="name"
-      aria-hidden
-    >
-      <i v-if="players.includes(color)" class="bi-check-circle-fill" />
-      <i v-else class="bi-circle-fill" />
-    </span>
+  <label v-for="(color, name) in availableColors" :key="name">
+    <ColorIcon :color="color" :checked="selectedColors.includes(color)" />
     <input
       type="checkbox"
       :value="color"
-      v-model="players"
+      v-model="selectedColors"
       name="players"
       class="hidden"
     />
