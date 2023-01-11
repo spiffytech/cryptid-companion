@@ -24,7 +24,7 @@ export interface PossibleClues {
   near_feature: ClueGroup;
 }
 export interface Player {
-  name: string;
+  color: string;
   clues: PossibleClues;
 }
 
@@ -41,17 +41,14 @@ watchEffect(() => console.log(clues.value?.on_terrain.values[0].status));
 
 <template>
   <div class="flex justify-between">
-    <AddPlayer
-      :players="players"
-      @add-player="(player) => players.push(player)"
-    />
+    <AddPlayer @add-player="(player) => players.push(player)" />
 
     <button type="button" @click="players = []">Reset</button>
   </div>
 
   <div class="flex gap-x-2">
     <label v-for="(player, index) in players">
-      {{ player.name }}
+      {{ player.color }}
       <input
         type="radio"
         name="player"

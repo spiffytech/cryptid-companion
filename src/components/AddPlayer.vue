@@ -1,9 +1,20 @@
 <script setup lang="ts">
+import { ref } from "vue";
+
 import type { Player, PossibleClues } from "../App.vue";
 
 const emit = defineEmits<{ (e: "add-player", player: Player): void }>();
 
-const addPlayer = () => {
+const availablePlayers = {
+  orange: "text-orange-500",
+  purple: "text-purple-700",
+  teal: "text-teal-500",
+  sky: "text-sky-200",
+  red: "text-red-500",
+} as const;
+type PlayerColors = (typeof availablePlayers)[keyof typeof availablePlayers];
+
+const addPlayer = (color: PlayerColors) => {
   const clues: PossibleClues = {
     on_terrain: {
       prefix: "On",
@@ -75,10 +86,35 @@ const addPlayer = () => {
     },
   };
 
-  emit("add-player", { name: "foo", clues });
+  emit("add-player", { color, clues });
 };
+
+const addPlayers = () => {
+  players.value.forEach((color) => addPlayer(color));
+};
+
+const players = ref<PlayerColors[]>([]);
 </script>
 
 <template>
-  <button type="button" @click="addPlayer">Add a player!</button>
+  <label v-for="(color, name) in availablePlayers" :key="name">
+    <span
+      class="w-8 h-8 inline-block text-4xl"
+      :class="color"
+      :alt="name"
+      aria-hidden
+    >
+      <i v-if="players.includes(color)" class="bi-check-circle-fill" />
+      <i v-else class="bi-circle-fill" />
+    </span>
+    <input
+      type="checkbox"
+      :value="color"
+      v-model="players"
+      name="players"
+      class="hidden"
+    />
+  </label>
+
+  <button type="submit" @click.prevent="addPlayers">Select players</button>
 </template>
