@@ -1,4 +1,4 @@
-import { createSignal, For } from "solid-js";
+import { createSignal, For, Show } from "solid-js";
 import type { Component } from "solid-js";
 
 import ColorIcon from "./ColorIcon";
@@ -121,29 +121,46 @@ const AddPlayer: Component<{ addPlayer: (player: Player) => void }> = (
     }
   };
 
+  const submitDisabled = () => selectedColors().length === 0;
+
   return (
     <>
-      <For each={Object.values(availableColors) as PlayerColors[]}>
-        {(color) => (
-          <label>
-            <ColorIcon
-              color={color}
-              checked={selectedColors().includes(color)}
-            />
-            <input
-              type="checkbox"
-              value={color}
-              onchange={(e) => toggleColor(e, color)}
-              name="players"
-              class="hidden"
-            />
-          </label>
-        )}
-      </For>
+      <div class="flex gap-x-4 mt-4 mb-4">
+        <For each={Object.values(availableColors) as PlayerColors[]}>
+          {(color) => (
+            <label>
+              <ColorIcon
+                color={color}
+                checked={selectedColors().includes(color)}
+              />
+              <input
+                type="checkbox"
+                value={color}
+                onchange={(e) => toggleColor(e, color)}
+                name="players"
+                class="hidden"
+              />
+            </label>
+          )}
+        </For>
+      </div>
 
-      <button type="submit" onclick={addPlayers}>
-        Select players
-      </button>
+      <Show
+        when={!submitDisabled()}
+        fallback={
+          <p class="italic text-sm">Click a color to put it in the game</p>
+        }
+      >
+        <button
+          type="submit"
+          onclick={addPlayers}
+          class="block mx-auto px-2 py-1 border-2 rounded-md"
+          classList={{ "text-gray-500": submitDisabled() }}
+          disabled={submitDisabled()}
+        >
+          Select players
+        </button>
+      </Show>
     </>
   );
 };

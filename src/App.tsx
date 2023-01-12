@@ -48,14 +48,14 @@ const App: Component = () => {
         Cryptid Companion
       </h1>
 
-      <div class="flex justify-between">
-        <Show when={players.length === 0}>
-          <AddPlayer addPlayer={(player) => setPlayers([...players, player])} />
-        </Show>
-      </div>
+      <Show when={players.length === 0}>
+        <AddPlayer addPlayer={(player) => setPlayers([...players, player])} />
+      </Show>
 
       <div class="flex flex-col items-center">
-        <h2 class="mb-2 text-lg italic comic-neue">Players</h2>
+        <Show when={players.length > 0}>
+          <h2 class="mb-2 text-lg italic comic-neue">Players</h2>
+        </Show>
         <div class="flex gap-x-8">
           <For each={players}>
             {(player, index) => (
@@ -99,13 +99,15 @@ const App: Component = () => {
         </Show>{" "}
       </div>
 
-      <button
-        type="button"
-        onclick={() => setPlayers([])}
-        class="block mx-auto mt-8 px-2 py-1 border-2 rounded-md"
-      >
-        Start a new game
-      </button>
+      <Show when={players.length > 0}>
+        <button
+          type="button"
+          onclick={() => setPlayers([])}
+          class="block mx-auto mt-8 px-2 py-1 border-2 rounded-md"
+        >
+          Start a new game
+        </button>
+      </Show>
     </>
   );
 };
