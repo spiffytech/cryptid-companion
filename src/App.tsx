@@ -44,41 +44,44 @@ const App: Component = () => {
 
   return (
     <>
+      <h1 class="text-4xl font-semibold comic-neue mx-auto">
+        Cryptid Companion
+      </h1>
+
       <div class="flex justify-between">
         <Show when={players.length === 0}>
           <AddPlayer addPlayer={(player) => setPlayers([...players, player])} />
         </Show>
-
-        <button type="button" onclick={() => setPlayers([])} class="ml-auto">
-          Reset
-        </button>
       </div>
 
-      <div class="flex gap-x-8 justify-center mb-4">
-        <For each={players}>
-          {(player, index) => (
-            <label
-              class="pb-1"
-              classList={{
-                [`border-b-4 ${player.color.replace(/^text/, "border")}`]:
-                  activePlayer() === index(),
-              }}
-            >
-              <ColorIcon color={player.color} checked={false} />
-              <input
-                type="radio"
-                name="player"
-                onchange={() => setActivePlayer(index())}
-                value={index()}
-                class="hidden"
-              />
-            </label>
-          )}
-        </For>
+      <div class="flex flex-col items-center">
+        <h2 class="mb-2 text-lg italic comic-neue">Players</h2>
+        <div class="flex gap-x-8">
+          <For each={players}>
+            {(player, index) => (
+              <label class="pb-1">
+                <ColorIcon color={player.color} checked={false} />
+                <input
+                  type="radio"
+                  name="player"
+                  onchange={() => setActivePlayer(index())}
+                  value={index()}
+                  class="hidden"
+                />
+              </label>
+            )}
+          </For>
+        </div>
       </div>
 
       <div class="w-full flex flex-col md:items-center">
         <Show when={clues()}>
+          <hr
+            class={`rounded-full border-2 w-3/5 mb-4
+                  ${players[activePlayer()].color.replace(/^text/, "border")}
+          `}
+          />
+
           <Clues
             clues={clues()!}
             toggleClue={(group: keyof PossibleClues, i: number) =>
@@ -93,8 +96,16 @@ const App: Component = () => {
               )
             }
           />
-        </Show>
+        </Show>{" "}
       </div>
+
+      <button
+        type="button"
+        onclick={() => setPlayers([])}
+        class="block mx-auto mt-8 px-2 py-1 border-2 rounded-md"
+      >
+        Start a new game
+      </button>
     </>
   );
 };

@@ -90,7 +90,7 @@ const FeatureComponent: Component<{ features: Feature[] }> = (props) => {
                 )}
               </For>
             </span>
-            <span class="ml-1">{feature.prefix ?? ""}</span>
+            <span class="ml-1">{(feature.prefix ?? "") + " "}</span>
             <span
               style={{
                 width:
@@ -98,9 +98,10 @@ const FeatureComponent: Component<{ features: Feature[] }> = (props) => {
                     ? `${featureWidth()}px`
                     : "",
               }}
-              class="inline-block whitespace-nowrap"
+              class="inline-block"
             >
               <span
+                class="whitespace-nowrap"
                 classList={{
                   "feature-name": featureIndex() === 0,
                 }}

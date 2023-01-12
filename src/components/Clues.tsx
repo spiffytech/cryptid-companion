@@ -43,7 +43,7 @@ const Clues: Component<{
     <For each={groups()}>
       {(group) => (
         <div class="md:w-4/5 lg:w-3/5 flex flex-col md:items-center px-4">
-          <h2 class="font-bold border-b-2 w-full md:text-center">
+          <h2 class="text-lg font-semibold border-b-2 w-full md:text-center comic-neue">
             {group.header}
           </h2>
           <div class="flex flex-wrap w-full justify-between mb-8">

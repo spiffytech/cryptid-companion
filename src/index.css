@@ -13,3 +13,12 @@
   right: 0;
   @apply border border-gray-400;
 }
+
+@font-face {
+  font-family: "Comic Neue";
+  src: url("/src/assets/Comic_Neue/ComicNeue-Regular.ttf") format("truetype");
+}
+
+.comic-neue {
+  font-family: "Comic Neue", sans-serif;
+}
