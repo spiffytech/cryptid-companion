@@ -48,7 +48,7 @@ const Clues: Component<{
           </h2>
           <div class="flex flex-wrap w-full justify-between mb-8">
             <For each={subgroups(group)}>
-              {(subgroup) => (
+              {(subgroup, subgroupIndex) => (
                 <ul>
                   <For each={subgroup}>
                     {(value, index) => (
@@ -57,7 +57,11 @@ const Clues: Component<{
                           type="checkbox"
                           checked={value.status}
                           onchange={() =>
-                            props.toggleClue(group.group, index())
+                            props.toggleClue(
+                              group.group,
+                              index() +
+                                (subgroupIndex() > 0 ? subgroup.length : 0)
+                            )
                           }
                           class="mr-2"
                         />
