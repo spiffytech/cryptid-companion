@@ -2,6 +2,7 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 import clsx from "clsx";
+import { nextTick, ref } from "vue";
 
 import type { Feature } from "../App.vue";
 
@@ -57,24 +58,54 @@ const selectIcon = (label: string): { icon: string; color: string }[] => {
       throw new Error("A feature style wasn't specified");
   }
 };
+
+const el = ref<HTMLSpanElement>();
+
+// There's no way to use CSS to align all the feature icons while also grouping
+// lines so we can uniformly style them. So hack around it by manually making
+// them as wide as they need to be.
+const featureWidth = ref(0);
+nextTick(() => {
+  if (!el.value) return;
+  const list = el.value.closest("ul")!;
+  const features = list.querySelectorAll<HTMLSpanElement>(".feature-name");
+  console.log(features);
+  console.log(Array.from(features).map((el) => el.offsetWidth));
+  const maxWidth = Math.max(
+    ...Array.from(features).map((el) => el.offsetWidth)
+  );
+  featureWidth.value = maxWidth;
+  console.log(featureWidth.value);
+});
 </script>
 
 <template>
-  <span v-for="(feature, index) in features" class="table-cell">
-    <span class="ml-1">
-      <i
-        v-for="(icon, index) in selectIcon(feature.label)"
-        :class="
-          clsx(
-            `bi-${icon.icon}`,
-            icon.color,
-            index + 1 < selectIcon(feature.label).length && 'mr-1'
-          )
-        "
-      />
+  <div ref="el">
+    <span v-for="(feature, index) in features">
+      <span class="ml-1">
+        <i
+          v-for="(icon, index) in selectIcon(feature.label)"
+          :class="
+            clsx(
+              `bi-${icon.icon}`,
+              icon.color,
+              index + 1 < selectIcon(feature.label).length && 'mr-1'
+            )
+          "
+        />
+      </span>
+      <span class="ml-1">{{ feature.prefix ?? "" }}</span>
+      <span
+        :style="{
+          width: index + 1 < features.length ? `${featureWidth}px` : '',
+        }"
+        class="inline-block whitespace-nowrap"
+      >
+        <span :class="{ 'feature-name': index + 1 < features.length }"
+          >{{ feature.label }}
+          {{ index + 1 < features.length ? " or " : "" }}
+        </span>
+      </span>
     </span>
-    <span class="ml-1">{{ feature.prefix ?? "" }}</span>
-    {{ feature.label }}
-    {{ index + 1 < features.length ? " or " : "" }}
-  </span>
+  </div>
 </template>

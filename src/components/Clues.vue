@@ -49,27 +49,24 @@ const subgroups = (group: (typeof groups.value)[number]) => [
       {{ group.header }}
     </h2>
     <div class="flex flex-wrap w-full justify-between mb-8">
-      <ul v-for="subgroup in subgroups(group)" class="table">
-        <li
-          v-for="value in subgroup"
-          class="table-row"
-          style="text-decoration-skip-ink: none"
-        >
+      <ul v-for="subgroup in subgroups(group)">
+        <li v-for="value in subgroup" class="flex">
           <input
             type="checkbox"
             :checked="value.status"
             @change="() => toggleClue(value)"
-            class="mr-2 table-cell"
+            class="mr-2"
           />
           <!-- CSS text-decoration strikethrough breaks up anytime it encounters
           margin or padding. So we have to hack around it with a positioned
           border instead :( -->
           <span
+            class="flex"
             :class="{
               'strikethrough text-gray-400 grayscale-[80%]': value.status,
             }"
           >
-            <span class="table-cell">{{ group.prefix ?? "" }}</span>
+            <span>{{ group.prefix ?? "" }}</span>
             <Feature :features="value.features" />
           </span>
         </li>
