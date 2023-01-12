@@ -52,22 +52,26 @@ const subgroups = (group: (typeof groups.value)[number]) => [
       <ul v-for="subgroup in subgroups(group)" class="table">
         <li
           v-for="value in subgroup"
-          :class="
-            clsx(
-              'table-row',
-              value.status &&
-                'line-through decoration-2 text-gray-400 grayscale'
-            )
-          "
+          class="table-row"
+          style="text-decoration-skip-ink: none"
         >
           <input
             type="checkbox"
             :checked="value.status"
             @change="() => toggleClue(value)"
-            class="mr-2"
+            class="mr-2 table-cell"
           />
-          <span class="table-cell">{{ group.prefix ?? "" }}</span>
-          <Feature :features="value.features" />
+          <!-- CSS text-decoration strikethrough breaks up anytime it encounters
+          margin or padding. So we have to hack around it with a positioned
+          border instead :( -->
+          <span
+            :class="{
+              'strikethrough text-gray-400 grayscale-[80%]': value.status,
+            }"
+          >
+            <span class="table-cell">{{ group.prefix ?? "" }}</span>
+            <Feature :features="value.features" />
+          </span>
         </li>
       </ul>
     </div>
