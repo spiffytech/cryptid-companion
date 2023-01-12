@@ -66,17 +66,10 @@ const FeatureComponent: Component<{ features: Feature[] }> = (props) => {
     if (!el) return;
     const list = el.closest("ul")!;
     const features = list.querySelectorAll<HTMLSpanElement>(".feature-name");
-    console.log(
-      "l",
-      Array.from(list.children).map((e) => e.children)
-    );
-    console.log({ list, features });
-    console.log(Array.from(features).map((el) => el.offsetWidth));
     const maxWidth = Math.max(
       ...Array.from(features).map((el) => el.offsetWidth)
     );
     setFeatureWidth(maxWidth);
-    console.log(featureWidth());
   });
 
   return (

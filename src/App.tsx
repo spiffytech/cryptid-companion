@@ -41,7 +41,6 @@ const App: Component = () => {
   const clues = createMemo(() =>
     players.length > 0 ? players[activePlayer()].clues : null
   );
-  createEffect(() => console.log(clues()?.on_terrain.values[0].status));
 
   return (
     <>
