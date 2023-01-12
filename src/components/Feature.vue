@@ -61,7 +61,6 @@ const selectIcon = (label: string): { icon: string; color: string }[] => {
 
 <template>
   <span v-for="(feature, index) in features" class="table-cell">
-    <span class="ml-1">{{ feature.prefix ?? "" }}</span>
     <span class="ml-1">
       <i
         v-for="(icon, index) in selectIcon(feature.label)"
@@ -74,6 +73,7 @@ const selectIcon = (label: string): { icon: string; color: string }[] => {
         "
       />
     </span>
+    <span class="ml-1">{{ feature.prefix ?? "" }}</span>
     {{ feature.label }}
     {{ index + 1 < features.length ? " or " : "" }}
   </span>
