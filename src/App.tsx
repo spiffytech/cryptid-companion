@@ -74,14 +74,16 @@ const App: Component = () => {
         </div>
       </div>
 
-      <div class="w-full flex flex-col md:items-center">
-        <Show when={clues()}>
-          <hr
-            class={`rounded-full border-2 w-3/5 mb-4
+      <Show when={clues()}>
+        <hr
+          class={`rounded-full border-2 w-3/5 lg:w-2/5 mb-4
                   ${players[activePlayer()].color.replace(/^text/, "border")}
           `}
-          />
+        />
+      </Show>
 
+      <div class="w-full flex flex-col md:items-center">
+        <Show when={clues()}>
           <Clues
             clues={clues()!}
             toggleClue={(group: keyof PossibleClues, i: number) =>
