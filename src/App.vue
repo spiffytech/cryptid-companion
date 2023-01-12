@@ -3,7 +3,6 @@ import { ref, watchEffect, computed } from "vue";
 
 import AddPlayer from "./components/AddPlayer.vue";
 import Clues from "./components/Clues.vue";
-import Feature from "./components/Feature.vue";
 import ColorIcon from "./components/ColorIcon.vue";
 
 export interface Feature {

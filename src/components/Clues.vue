@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import clsx from "clsx";
 
 import Feature from "./Feature.vue";
 
