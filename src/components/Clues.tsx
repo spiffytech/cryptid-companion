@@ -70,12 +70,10 @@ const Clues: Component<{
           margin or padding. So we have to hack around it with a positioned
           border instead :(  */}
                           <span
-                            class="flex"
                             classList={{
                               "line-through decoration-2 text-gray-400 grayscale-[80%]":
                                 value.status,
                             }}
-                            style="text-decoration-skip: none;"
                           >
                             <span>{group.prefix ?? ""}</span>
                             <Feature features={value.features} />

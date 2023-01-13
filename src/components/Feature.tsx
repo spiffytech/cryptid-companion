@@ -74,7 +74,7 @@ const FeatureComponent: Component<{ features: Feature[] }> = (props) => {
 
   return (
     <>
-      <div ref={el} />
+      <div ref={el} class="contents" />
       <For each={props.features}>
         {(feature, featureIndex) => (
           <>
@@ -93,6 +93,7 @@ const FeatureComponent: Component<{ features: Feature[] }> = (props) => {
                   featureIndex() + 1 < props.features.length
                     ? `${featureWidth()}px`
                     : "",
+                "text-decoration": "inherit",
               }}
             >
               <span
