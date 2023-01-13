@@ -47,7 +47,7 @@ const App: Component = () => {
       class={`${
         players[activePlayer()]?.color.replace(/^text/, "bg") ??
         "bg-emerald-500"
-      } min-h-100 min-w-100 p-1`}
+      } min-h-screen min-w-screen p-1`}
     >
       <div
         class={`m-4 p-2 ${
