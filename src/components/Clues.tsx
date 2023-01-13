@@ -53,7 +53,7 @@ const Clues: Component<{
                   <For each={subgroup}>
                     {(value, index) => (
                       <li>
-                        <label class="flex items-center sm:h-10">
+                        <label class="flex items-center h-10 md:h-fit">
                           <input
                             type="checkbox"
                             checked={value.status}
