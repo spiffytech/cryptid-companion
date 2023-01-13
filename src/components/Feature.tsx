@@ -1,4 +1,4 @@
-import { createSignal, onMount, For } from "solid-js";
+import { For, Show } from "solid-js";
 
 import type { Component } from "solid-js";
 
@@ -56,56 +56,26 @@ const FeatureComponent: Component<{ features: Feature[] }> = (props) => {
     }
   };
 
-  let el: HTMLDivElement | undefined;
-
-  // There's no way to use CSS to align all the feature icons while also grouping
-  // lines so we can uniformly style them. So hack around it by manually making
-  // them as wide as they need to be.
-  const [featureWidth, setFeatureWidth] = createSignal(0);
-  onMount(() => {
-    if (!el) return;
-    const list = el.closest("ul")!;
-    const features = list.querySelectorAll<HTMLSpanElement>(".feature-name");
-    const maxWidth = Math.max(
-      ...Array.from(features).map((el) => el.offsetWidth)
-    );
-    setFeatureWidth(maxWidth);
-  });
-
   return (
     <>
-      <div ref={el} class="contents" />
+      &ensp;
       <For each={props.features}>
         {(feature, featureIndex) => (
           <>
-            &ensp;
             <For each={selectIcon(feature.label)}>
               {(icon) => <i class={`bi-${icon.icon} ${icon.color}`} />}
             </For>
-            &thinsp;
-            {feature.prefix ?? ""}
-            {feature.prefix ? <>&thinsp;</> : null}
-            {/* We require inline-block for the width style to kick in */}
-            <span
-              class="inline-block"
-              style={{
-                width:
-                  featureIndex() + 1 < props.features.length
-                    ? `${featureWidth()}px`
-                    : "",
-                "text-decoration": "inherit",
-              }}
-            >
-              <span
-                class="whitespace-nowrap"
-                classList={{
-                  "feature-name": featureIndex() === 0,
-                }}
-              >
-                {feature.label}
-                {featureIndex() + 1 < props.features.length ? " or " : ""}
-              </span>
-            </span>
+            {featureIndex() + 1 < props.features.length ? <>&hairsp;</> : ""}
+          </>
+        )}
+      </For>
+      &thinsp;
+      <For each={props.features}>
+        {(feature, featureIndex) => (
+          <>
+            <Show when={feature.prefix}>{feature.prefix}&nbsp;</Show>
+            {feature.label}
+            {featureIndex() + 1 < props.features.length ? " or " : ""}
           </>
         )}
       </For>

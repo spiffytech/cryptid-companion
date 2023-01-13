@@ -76,7 +76,7 @@ const App: Component = () => {
 
       <Show when={clues()}>
         <hr
-          class={`rounded-full border-2 w-3/5 lg:w-2/5 mb-4
+          class={`rounded-full border-t-4 w-3/5 lg:w-2/5 mb-4
                   ${players[activePlayer()].color.replace(/^text/, "border")}
           `}
         />
