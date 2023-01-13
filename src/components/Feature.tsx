@@ -83,7 +83,8 @@ const FeatureComponent: Component<{ features: Feature[] }> = (props) => {
               {(icon) => <i class={`bi-${icon.icon} ${icon.color}`} />}
             </For>
             &thinsp;
-            {(feature.prefix ?? "") + " "}
+            {feature.prefix ?? ""}
+            {feature.prefix ? <>&thinsp;</> : null}
             {/* We require inline-block for the width style to kick in */}
             <span
               class="inline-block"
