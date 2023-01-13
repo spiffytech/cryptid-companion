@@ -73,32 +73,26 @@ const FeatureComponent: Component<{ features: Feature[] }> = (props) => {
   });
 
   return (
-    <div ref={el}>
+    <>
+      <div ref={el} />
       <For each={props.features}>
         {(feature, featureIndex) => (
-          <span>
-            <span class="ml-1">
-              <For each={selectIcon(feature.label)}>
-                {(icon, iconIndex) => (
-                  <i
-                    class={`bi-${icon.icon} ${icon.color}`}
-                    classList={{
-                      "mr-1":
-                        iconIndex() + 1 < selectIcon(feature.label).length,
-                    }}
-                  />
-                )}
-              </For>
-            </span>
-            <span class="ml-1">{(feature.prefix ?? "") + " "}</span>
+          <>
+            &ensp;
+            <For each={selectIcon(feature.label)}>
+              {(icon) => <i class={`bi-${icon.icon} ${icon.color}`} />}
+            </For>
+            &thinsp;
+            {(feature.prefix ?? "") + " "}
+            {/* We require inline-block for the width style to kick in */}
             <span
+              class="inline-block"
               style={{
                 width:
                   featureIndex() + 1 < props.features.length
                     ? `${featureWidth()}px`
                     : "",
               }}
-              class="inline-block"
             >
               <span
                 class="whitespace-nowrap"
@@ -110,10 +104,10 @@ const FeatureComponent: Component<{ features: Feature[] }> = (props) => {
                 {featureIndex() + 1 < props.features.length ? " or " : ""}
               </span>
             </span>
-          </span>
+          </>
         )}
       </For>
-    </div>
+    </>
   );
 };
 export default FeatureComponent;
