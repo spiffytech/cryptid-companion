@@ -52,32 +52,34 @@ const Clues: Component<{
                 <ul>
                   <For each={subgroup}>
                     {(value, index) => (
-                      <li class="flex">
-                        <input
-                          type="checkbox"
-                          checked={value.status}
-                          onchange={() =>
-                            props.toggleClue(
-                              group.group,
-                              index() +
-                                (subgroupIndex() > 0 ? subgroup.length : 0)
-                            )
-                          }
-                          class="mr-2"
-                        />
-                        {/* CSS text-decoration strikethrough breaks up anytime it encounters
+                      <li>
+                        <label class="flex">
+                          <input
+                            type="checkbox"
+                            checked={value.status}
+                            onchange={() =>
+                              props.toggleClue(
+                                group.group,
+                                index() +
+                                  (subgroupIndex() > 0 ? subgroup.length : 0)
+                              )
+                            }
+                            class="mr-2"
+                          />
+                          {/* CSS text-decoration strikethrough breaks up anytime it encounters
           margin or padding. So we have to hack around it with a positioned
           border instead :(  */}
-                        <span
-                          class="flex"
-                          classList={{
-                            "strikethrough text-gray-400 grayscale-[80%]":
-                              value.status,
-                          }}
-                        >
-                          <span>{group.prefix ?? ""}</span>
-                          <Feature features={value.features} />
-                        </span>
+                          <span
+                            class="flex"
+                            classList={{
+                              "strikethrough text-gray-400 grayscale-[80%]":
+                                value.status,
+                            }}
+                          >
+                            <span>{group.prefix ?? ""}</span>
+                            <Feature features={value.features} />
+                          </span>
+                        </label>
                       </li>
                     )}
                   </For>
