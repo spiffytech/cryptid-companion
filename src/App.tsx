@@ -43,71 +43,84 @@ const App: Component = () => {
   );
 
   return (
-    <>
-      <h1 class="text-4xl font-semibold comic-neue mx-auto">
-        Cryptid Companion
-      </h1>
+    <div
+      class={`${
+        players[activePlayer()]?.color.replace(/^text/, "bg") ??
+        "bg-emerald-500"
+      } min-h-100 min-w-100 p-1`}
+    >
+      <div
+        class={`m-4 p-2 ${
+          players[activePlayer()]?.color
+            .replace(/^text/, "bg")
+            .replace(/\d+$/, "50") ?? "bg-emerald-50"
+        } rounded-lg flex flex-col items-center`}
+      >
+        <h1 class="text-4xl font-semibold comic-neue mx-auto">
+          Cryptid Companion
+        </h1>
 
-      <Show when={players.length === 0}>
-        <AddPlayer addPlayer={(player) => setPlayers([...players, player])} />
-      </Show>
+        <Show when={players.length === 0}>
+          <AddPlayer addPlayer={(player) => setPlayers([...players, player])} />
+        </Show>
 
-      <div class="flex flex-col items-center">
-        <div class="flex gap-x-8">
-          <For each={players}>
-            {(player, index) => (
-              <label class="pb-1">
-                <ColorIcon color={player.color} checked={false} />
-                <input
-                  type="radio"
-                  name="player"
-                  onchange={() => setActivePlayer(index())}
-                  value={index()}
-                  class="hidden"
-                />
-              </label>
-            )}
-          </For>
+        <div class="flex flex-col items-center">
+          <div class="flex gap-x-8">
+            <For each={players}>
+              {(player, index) => (
+                <label class="pb-1">
+                  <ColorIcon color={player.color} checked={false} />
+                  <input
+                    type="radio"
+                    name="player"
+                    onchange={() => setActivePlayer(index())}
+                    value={index()}
+                    class="hidden"
+                  />
+                </label>
+              )}
+            </For>
+          </div>
         </div>
-      </div>
 
-      <Show when={clues()}>
-        <hr
-          class={`rounded-full border-t-4 w-3/5 lg:w-2/5 mb-4
+        <Show when={clues()}>
+          <hr
+            class={`rounded-full border-t-4 w-3/5 lg:w-2/5 mb-4
                   ${players[activePlayer()].color.replace(/^text/, "border")}
           `}
-        />
-      </Show>
-
-      <div class="w-full flex flex-col md:items-center">
-        <Show when={clues()}>
-          <Clues
-            clues={clues()!}
-            toggleClue={(group: keyof PossibleClues, i: number) =>
-              setPlayers(
-                activePlayer(),
-                "clues",
-                group,
-                "values",
-                i,
-                "status",
-                (status) => !status
-              )
-            }
           />
-        </Show>{" "}
-      </div>
+        </Show>
 
-      <Show when={players.length > 0}>
-        <button
-          type="button"
-          onclick={() => setPlayers([])}
-          class="block mx-auto mt-8 px-2 py-1 border-2 rounded-md"
-        >
-          Start a new game
-        </button>
-      </Show>
-    </>
+        <div class="w-full flex flex-col md:items-center">
+          <Show when={clues()}>
+            <Clues
+              clues={clues()!}
+              toggleClue={(group: keyof PossibleClues, i: number) =>
+                setPlayers(
+                  activePlayer(),
+                  "clues",
+                  group,
+                  "values",
+                  i,
+                  "status",
+                  (status) => !status
+                )
+              }
+            />
+          </Show>{" "}
+        </div>
+
+        <Show when={players.length > 0}>
+          <button
+            type="button"
+            onclick={() => setPlayers([])}
+            class="block mx-auto mt-8 px-2 py-1 border-2 rounded-md"
+          >
+            Start a new game
+          </button>
+        </Show>
+      </div>
+    </div>
   );
 };
 export default App;
