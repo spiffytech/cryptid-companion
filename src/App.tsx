@@ -53,9 +53,6 @@ const App: Component = () => {
       </Show>
 
       <div class="flex flex-col items-center">
-        <Show when={players.length > 0}>
-          <h2 class="mb-2 text-lg italic comic-neue">Players</h2>
-        </Show>
         <div class="flex gap-x-8">
           <For each={players}>
             {(player, index) => (
