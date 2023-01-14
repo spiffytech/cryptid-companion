@@ -34,11 +34,6 @@ const Clues: Component<{
     },
   ]);
 
-  const subgroups = (group: ReturnType<typeof groups>[number]) => [
-    group.values.slice(0, group.values.length / 2),
-    group.values.slice(group.values.length / 2),
-  ];
-
   return (
     <For each={groups()}>
       {(group) => (
@@ -47,44 +42,34 @@ const Clues: Component<{
             {group.header}
           </h2>
           <div class="flex flex-wrap w-full justify-between mb-8">
-            <For each={subgroups(group)}>
-              {(subgroup, subgroupIndex) => (
-                <ul>
-                  <For each={subgroup}>
-                    {(value, index) => (
-                      <li>
-                        <label class="flex items-center h-10 md:h-fit">
-                          <input
-                            type="checkbox"
-                            checked={value.status}
-                            onchange={() =>
-                              props.toggleClue(
-                                group.group,
-                                index() +
-                                  (subgroupIndex() > 0 ? subgroup.length : 0)
-                              )
-                            }
-                            class="mr-2"
-                          />
-                          {/* CSS text-decoration strikethrough breaks up anytime it encounters
+            <ul>
+              <For each={group.values}>
+                {(value, index) => (
+                  <li>
+                    <label class="flex items-center h-10 md:h-fit">
+                      <input
+                        type="checkbox"
+                        checked={value.status}
+                        onchange={() => props.toggleClue(group.group, index())}
+                        class="mr-2"
+                      />
+                      {/* CSS text-decoration strikethrough breaks up anytime it encounters
           margin or padding. So we have to hack around it with a positioned
           border instead :(  */}
-                          <span
-                            classList={{
-                              "line-through decoration-2 text-gray-400 grayscale-[80%]":
-                                value.status,
-                            }}
-                          >
-                            <span>{group.prefix ?? ""}</span>
-                            <Feature features={value.features} />
-                          </span>
-                        </label>
-                      </li>
-                    )}
-                  </For>
-                </ul>
-              )}
-            </For>
+                      <span
+                        classList={{
+                          "line-through decoration-2 text-gray-400 grayscale-[80%]":
+                            value.status,
+                        }}
+                      >
+                        <span>{group.prefix ?? ""}</span>
+                        <Feature features={value.features} />
+                      </span>
+                    </label>
+                  </li>
+                )}
+              </For>
+            </ul>
           </div>
         </div>
       )}
