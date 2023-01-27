@@ -121,7 +121,7 @@ const AddPlayer: Component<{ addPlayer: (player: Player) => void }> = (
     }
   };
 
-  const submitDisabled = () => selectedColors().length === 0;
+  const submitDisabled = () => selectedColors().length < 3;
 
   return (
     <>
@@ -148,7 +148,7 @@ const AddPlayer: Component<{ addPlayer: (player: Player) => void }> = (
       <Show
         when={!submitDisabled()}
         fallback={
-          <p class="italic text-sm">Click a color to put it in the game</p>
+          <p class="italic text-sm">Click 3-5 colors to put them in the game</p>
         }
       >
         <button
